@@ -1,0 +1,27 @@
+version: '3.1'
+
+services:
+  xnova:
+    image: alexprowars/xnova:latest
+    container_name: xnova_game
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql
+    environment:
+      DB_HOST: mysql
+      DB_USER: root
+      DB_PASSWORD: password
+      DB_NAME: xnova
+
+  mysql:
+    image: mysql:5.7
+    container_name: xnova_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: xnova
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
